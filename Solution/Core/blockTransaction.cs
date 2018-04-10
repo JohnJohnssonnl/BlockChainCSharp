@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockChainCSharp.Core
 {
-    class blockTransaction
+    class BlockTransaction
     {
         //Placeholders: begin
         private string Sender;
@@ -28,6 +28,11 @@ namespace BlockChainCSharp.Core
             if (_amount < 0)
             {
                 Console.WriteLine("Transaction has amount < 0, not allowed");
+                return false;
+            }
+            if (_blockId == 0)
+            {
+                Console.WriteLine("Cannot add a transaction to the genesis block");
                 return false;
             }
 

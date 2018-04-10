@@ -12,7 +12,7 @@ namespace BlockChainCSharp.Core
         private Int64                       blockNumber;
         private Hash                        parentHash;
         private Hash                        blockHash;
-        private IList<blockTransaction>     blockTransactions;  //One block has a list of transactions
+        private IList<BlockTransaction>     blockTransactions;  //One block has a list of transactions
 
         public Boolean IsGenesisBlock()
         {
