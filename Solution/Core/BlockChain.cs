@@ -10,9 +10,36 @@ namespace BlockChainCSharp.Core
     {
         private Block[] ChainedBlocks;
 
+        private void PeriodicCreateBlock()
+        {
+            var delay = Task.Run(async () =>
+            {
+                await Task.Delay(5000);
+                GenerateBlock();
+                PeriodicCreateBlock();
+                Console.WriteLine(GetHeight());
+            });
+        }
+
+        public void Genesis()
+        {
+            int x = 0;
+            ChainedBlocks = new Block[0];
+            //This is where the blockChain starts
+            do
+            {
+                Console.ReadLine();
+                GenerateBlock();
+                Console.WriteLine(GetHeight());
+            } while (x < 100);
+        }
+
         public Block GetBlock(Int64 _Height)
         {
             //Returns requested block
+            if (_Height < 0)
+                return null;    //Genesis block
+
             return ChainedBlocks[_Height];
         }
         public Int64 GetHeight()
@@ -24,9 +51,9 @@ namespace BlockChainCSharp.Core
         public void GenerateBlock()
         {
             Block newBlock = new Block();
-
+            Array.Resize(ref ChainedBlocks, ChainedBlocks.Length + 1);
             //Add a new block to the chain
-            ChainedBlocks[ChainedBlocks.Length] = newBlock.CreateBlock(this);
+            ChainedBlocks[ChainedBlocks.Length -1] = newBlock.CreateBlock(this);
         }
     }
 }

@@ -24,16 +24,40 @@ namespace BlockChainCSharp.Core
             return (this.blockHeight == 0 && this.parentHash == null);  //Both has to be true to validate as genesis block
         }
 
+        //Add a transaction to the block
+        public Boolean AddTransaction(BlockTransaction _Transaction)
+        {
+            Boolean ret = true;
+
+            try
+            {
+                blockTransactions.Add(_Transaction);
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong when adding the transaction to the block");
+                ret = false;
+            }
+
+            return ret;
+        }
+
         public Block CreateBlock(BlockChain _Chain)
         {
             //Create a new block
+            Block ParentBlock = _Chain.GetBlock(blockHeight - 1);
 
             blockDateTimeStamp  = DateTime.UtcNow;                              //Always use UTC
             blockHash           = CalculateHash();                              //Create Hash
-            parentHash          = _Chain.GetBlock(blockHeight - 1).GetHash();
+            parentHash          = null;
+            if (ParentBlock!=null)
+            {
+                parentHash = ParentBlock.GetHash();
+            }
+                      
             //Gets the height of the blockChain when creating a new block
             blockHeight         = _Chain.GetHeight();
-            blockHeight++;      //Always increment one
+            blockHeight--;  //It's the number of blocks away from the Genesis, so 1 becomes 0
 
             return this;
         }

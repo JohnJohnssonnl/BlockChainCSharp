@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace BlockChainCSharp.Core
 {
-    class BlockTransaction
+    public class BlockTransaction
     {
         //Placeholders: begin
-        private string Sender;
-        private string Receiver;
-        private string Description;
+        private string  Sender;
+        private string  Receiver;
+        private string  Description;
         //Placeholders: end
-        private double Amount;
-        private Int64  BlockId;
+        private double  Amount;
+        private Int64   blockHeight;
+        private Block   TargetBlock;
 
-        public Boolean GenerateNewTransaction(  string  _sender, 
-                                                string  _receiver, 
-                                                double  _amount, 
-                                                Int64   _blockId,
+        public Boolean GenerateNewTransaction(  string      _sender,
+                                                string      _receiver,
+                                                double      _amount,
+                                                Int64       _blockHeight,
+                                                BlockChain  _chain,
                                                 /*From here is optional*/
                                                 string _description)
         {
@@ -30,7 +32,7 @@ namespace BlockChainCSharp.Core
                 Console.WriteLine("Transaction has amount < 0, not allowed");
                 return false;
             }
-            if (_blockId == 0)
+            if (_blockHeight == 0)
             {
                 Console.WriteLine("Cannot add a transaction to the genesis block");
                 return false;
@@ -40,7 +42,16 @@ namespace BlockChainCSharp.Core
             Receiver    = _receiver;
             Amount      = _amount;
             Description = _description;
-            BlockId     = _blockId;
+            blockHeight = _blockHeight;
+
+            TargetBlock = _chain.GetBlock(_blockHeight);
+
+            if (TargetBlock == null)
+            {
+                throw new InvalidOperationException("Block you want to add the transaction to does not exist on the chain");
+            }
+
+            TargetBlock.AddTransaction(this);
 
             return Ret;
         }
