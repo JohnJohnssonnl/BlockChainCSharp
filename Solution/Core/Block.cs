@@ -9,8 +9,10 @@ namespace BlockChainCSharp.Core
 {
     public class Block
     {
-        private Int64 blockNumber;
-        private Hash  parentHash;
+        private Int64                       blockNumber;
+        private Hash                        parentHash;
+        private Hash                        blockHash;
+        private IList<blockTransaction>     blockTransactions;  //One block has a list of transactions
 
         public Boolean IsGenesisBlock()
         {
