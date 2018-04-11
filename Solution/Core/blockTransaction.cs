@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockChainCSharp.Core
 {
+    [Serializable]
     public class BlockTransaction
     {
         //Placeholders: begin

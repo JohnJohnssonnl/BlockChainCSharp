@@ -7,6 +7,7 @@ using Org.BouncyCastle.Crypto.Digests;
 
 namespace BlockChainCSharp.Core
 {
+    [Serializable]
     public class Block
     {
         private     Int64                       blockHeight;
@@ -59,6 +60,9 @@ namespace BlockChainCSharp.Core
             //Gets the height of the blockChain when creating a new block
             blockHeight         = _Chain.GetHeight();
             blockHeight--;  //It's the number of blocks away from the Genesis, so 1 becomes 0
+
+            ObjectSerializerBlock.WriteBlockToBlob(this,this.blockHeight);
+            ObjectSerializerBlock.ReadBlobToBlock(this.blockHeight); //Just for testing
 
             return this;
         }

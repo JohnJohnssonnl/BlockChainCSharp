@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace BlockChainCSharp.Core
-{ 
+{
     //Hash reference code
+    [Serializable]
     public class Hash
     {
         private static Random random = new Random();

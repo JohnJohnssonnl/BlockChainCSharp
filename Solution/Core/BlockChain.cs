@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockChainCSharp.Core
 {
+    [Serializable]
     public class BlockChain
     {
         private Block[] ChainedBlocks;
@@ -25,14 +26,25 @@ namespace BlockChainCSharp.Core
         public void Genesis()
         {
             int x = 0;
+            String userInput;
             ChainedBlocks = new Block[0];
             //This is where the blockChain starts (for now :-P)
             do
             {
-                Console.ReadLine();
-                GenerateBlock();
-                Console.WriteLine(GetHeight());
-            } while (x < 100);
+                userInput = Console.ReadLine();
+                if (userInput == "Save")
+                {
+                    ObjectSerializerBlockChain.WriteBlockChainToBlob(this);
+                    ObjectSerializerBlockChain.ReadBlobToBlockChain(); //Just for testing
+
+                    Console.WriteLine("BlockChain stored correctly");
+                }
+                else
+                {
+                    GenerateBlock();
+                    Console.WriteLine("Current Block Height:" + GetHeight());
+                }
+            } while (x < 100);  //Never ending for now :-P
         }
 
         public Block GetBlock(Int64 _Height)
