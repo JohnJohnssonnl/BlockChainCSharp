@@ -55,6 +55,7 @@
     <Compile Include="Core\Hash.cs" />
     <Compile Include="Core\ObjectSerializerBlock.cs" />
     <Compile Include="Core\ObjectSerializerBlockChain.cs" />
+    <Compile Include="Core\Transaction.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

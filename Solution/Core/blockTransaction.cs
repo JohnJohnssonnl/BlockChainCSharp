@@ -24,7 +24,7 @@ namespace BlockChainCSharp.Core
                                                 Int64       _blockHeight,
                                                 BlockChain  _chain,
                                                 /*From here is optional*/
-                                                string _description)
+                                                string      _description)
         {
             Boolean Ret = true;
 
@@ -45,7 +45,14 @@ namespace BlockChainCSharp.Core
             Description = _description;
             blockHeight = _blockHeight;
 
-            TargetBlock = _chain.GetBlock(_blockHeight);
+            _chain.AddTransactionToChainCue(this);  //new unconfirmed transaction
+
+            return Ret;
+        }
+
+        public Boolean AddTransactionToBlock(BlockChain _chain, BlockTransaction _transAction)
+        {
+            TargetBlock = _chain.GetBlock(_transAction.blockHeight);
 
             if (TargetBlock == null)
             {
@@ -54,7 +61,7 @@ namespace BlockChainCSharp.Core
 
             TargetBlock.AddTransaction(this);
 
-            return Ret;
+            return true;
         }
     }
 }
