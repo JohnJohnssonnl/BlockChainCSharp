@@ -13,6 +13,7 @@ namespace BlockChainCSharp
         {
             Core.BlockChain Chain = new Core.BlockChain();
 
+            //For now always start new
             Chain.Genesis();    
         }
     }

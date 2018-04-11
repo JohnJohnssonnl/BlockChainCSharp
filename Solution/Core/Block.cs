@@ -14,6 +14,7 @@ namespace BlockChainCSharp.Core
         private     Hash                        blockHash;
         private     DateTime                    blockDateTimeStamp;
         private     IList<BlockTransaction>     blockTransactions;  //One block has a list of transactions
+        private     Int64                       difficulty;
 
         //Design decision, we do not keep balances of an address, instead the balance should be calculated from all transactions at the moment of sending coins
         //One may NOT send coins when calc. balance < 0 AND when blockHeight < actual blockheight (messing with the system)

@@ -10,6 +10,7 @@ namespace BlockChainCSharp.Core
     {
         private Block[] ChainedBlocks;
 
+        //Placeholder stuff, later on when coding the estimated block interval, add some difficulty tricks to make it happen
         private void PeriodicCreateBlock()
         {
             var delay = Task.Run(async () =>
@@ -25,7 +26,7 @@ namespace BlockChainCSharp.Core
         {
             int x = 0;
             ChainedBlocks = new Block[0];
-            //This is where the blockChain starts
+            //This is where the blockChain starts (for now :-P)
             do
             {
                 Console.ReadLine();
