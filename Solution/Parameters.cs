@@ -10,6 +10,7 @@ namespace BlockChainCSharp
     {
         public Int64    MaxCoins                = 1000000;      //One million 
         public Int64    ExpectedBlockTime       = 30;           //Block time in seconds
+        public Int32    AllowedMinimalBlocktime = 20;            //Minimal block time should be 20 seconds
         public Int64    Difficulty              = 0;            //Dynamically calculate
         public Int32    MinNumOfMiningRequests  = 1;            //Bare minimum of miners required for calculating the block (testing 1, but later at least 10)
         public double   ConsensusReachedPct     = 90.0;         //At which percentage is consensus on the new block reached? recommended 90%

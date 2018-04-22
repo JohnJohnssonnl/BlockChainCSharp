@@ -65,17 +65,27 @@ namespace BlockChainCSharp.Core
         public void GenerateBlock()
         {
             Block newBlock = new Block();
-            Array.Resize(ref ChainedBlocks, ChainedBlocks.Length + 1);
             //Add a new block to the chain
-            ChainedBlocks[ChainedBlocks.Length -1] = newBlock.CreateBlock(this);
 
-            foreach (var item in unconfirmedTransactions)
+            try
             {
-                //Send unconfirmed transactions to block
-                newBlock.AddTransaction(item);
-            }
+                newBlock.CreateBlock(this); //Try
+                Array.Resize(ref ChainedBlocks, ChainedBlocks.Length + 1);
+                ChainedBlocks[ChainedBlocks.Length - 1] = newBlock;
 
-            unconfirmedTransactions.Clear();    //Clear unconfirmed transactions
+                foreach (var item in unconfirmedTransactions)
+                {
+                    //Send unconfirmed transactions to block
+                    newBlock.AddTransaction(item);
+                }
+
+                unconfirmedTransactions.Clear();    //Clear unconfirmed transactions
+            }
+            catch
+            {
+                Console.WriteLine("Skipped inserting block due to errors");
+                return;
+            }
         }
 
         public void AddTransactionToChainCue(BlockTransaction _transAction)

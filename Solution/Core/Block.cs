@@ -46,6 +46,10 @@ namespace BlockChainCSharp.Core
 
         public Block CreateBlock(BlockChain _Chain)
         {
+            int                 blockTimeDrift;
+            //Gets the height of the blockChain when creating a new block
+            blockHeight = _Chain.GetHeight();
+            blockHeight--;  //It's the number of blocks away from the Genesis, so 1 becomes 0
             //Create a new block
             Block ParentBlock = _Chain.GetBlock(blockHeight - 1);
 
@@ -55,11 +59,14 @@ namespace BlockChainCSharp.Core
             if (ParentBlock!=null)
             {
                 parentHash = ParentBlock.GetHash();
+                blockTimeDrift = (blockDateTimeStamp - ParentBlock.blockDateTimeStamp).Seconds;
+
+                if (blockTimeDrift < Parameters.GetParameter().AllowedMinimalBlocktime)
+                {
+                    //Possible timewarp attack, block
+                    throw new Exception("Block too fast");
+                }
             }
-                      
-            //Gets the height of the blockChain when creating a new block
-            blockHeight         = _Chain.GetHeight();
-            blockHeight--;  //It's the number of blocks away from the Genesis, so 1 becomes 0
 
             ObjectSerializerBlock.WriteBlockToBlob(this,this.blockHeight);
             ObjectSerializerBlock.ReadBlobToBlock(this.blockHeight); //Just for testing
