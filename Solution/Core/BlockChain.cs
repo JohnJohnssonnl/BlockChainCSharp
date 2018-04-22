@@ -10,7 +10,7 @@ namespace BlockChainCSharp.Core
     public class BlockChain
     {
         private Block[] ChainedBlocks;
-        private IList<BlockTransaction> unconfirmedTransactions;
+        private IList<BlockTransaction> unconfirmedTransactions = new List<BlockTransaction>();
 
         //Placeholder stuff, later on when coding the estimated block interval, add some difficulty tricks to make it happen
         private void PeriodicCreateBlock()
@@ -74,6 +74,7 @@ namespace BlockChainCSharp.Core
                 //Send unconfirmed transactions to block
                 newBlock.AddTransaction(item);
             }
+
             unconfirmedTransactions.Clear();    //Clear unconfirmed transactions
         }
 

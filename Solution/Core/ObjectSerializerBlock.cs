@@ -27,6 +27,8 @@ namespace BlockChainCSharp.Core
             BinaryFormatter bfd = new BinaryFormatter();
             Block deserializedBlock = bfd.Deserialize(memorystreamd) as Block;
 
+            memorystreamd.Close();
+
             return deserializedBlock;
         }
 
