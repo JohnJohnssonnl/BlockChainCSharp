@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using System.Linq;
-using System.Text;
 using Org.BouncyCastle.Crypto.Digests;
 
 namespace BlockChainCSharp.Core
@@ -65,6 +63,12 @@ namespace BlockChainCSharp.Core
                 {
                     //Possible timewarp attack, block
                     throw new Exception("Block too fast");
+                }
+
+                if (difficulty < Parameters.GetParameter().MinDifficulty)
+                {
+                    //Possible difficulty attack, block
+                    throw new Exception("Block with too low difficulity");
                 }
             }
 
