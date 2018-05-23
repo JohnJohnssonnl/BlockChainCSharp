@@ -15,7 +15,7 @@ namespace BlockChainCSharp
         public Int32    MinNumOfMiningRequests  = 1;            //Bare minimum of miners required for calculating the block (testing 1, but later at least 10)
         public double   ConsensusReachedPct     = 90.0;         //At which percentage is consensus on the new block reached? recommended 90%
         public double   MinimumFee              = 0.000001;     //Minimum fee for the miners on top of a block reward
-        public double   MinDifficulty           = 1;            //Minimal difficulty to be used, has to be used to prohibit goofy stuff
+        public Int64    MinDifficulty           = 1;            //Minimal difficulty to be used, has to be used to prohibit goofy stuff
 
         //Premining is for losers, no support for that kind of tricks
 

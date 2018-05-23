@@ -52,8 +52,10 @@ namespace BlockChainCSharp.Core
             Block ParentBlock = _Chain.GetBlock(blockHeight - 1);
 
             blockDateTimeStamp  = DateTime.UtcNow;                              //Always use UTC
-            blockHash           = CalculateHash();                              //Create Hash
             parentHash          = null;
+            difficulty          = BlockDifficulty.GetCurrentBlockDifficulty();  //Determine and write block difficulty
+            blockHash           = CalculateHash(difficulty);                    //Create Hash (use difficulty)
+
             if (ParentBlock!=null)
             {
                 parentHash = ParentBlock.GetHash();
@@ -63,12 +65,6 @@ namespace BlockChainCSharp.Core
                 {
                     //Possible timewarp attack, block
                     throw new Exception("Block too fast");
-                }
-
-                if (difficulty < Parameters.GetParameter().MinDifficulty)
-                {
-                    //Possible difficulty attack, block
-                    throw new Exception("Block with too low difficulity");
                 }
             }
 
@@ -83,8 +79,9 @@ namespace BlockChainCSharp.Core
             return this.blockHash;
         }
 
-        private Hash CalculateHash()
+        private Hash CalculateHash(Int64 _difficulty)
         {
+            //TODO: incorporate difficulty in hashing, maybe also change Sha3 to pbkdf2 to add difficulty
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             Sha3Digest digest = new Sha3Digest(256);
             byte[] bytes = new byte[32];
