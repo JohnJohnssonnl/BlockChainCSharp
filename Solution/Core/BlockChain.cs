@@ -62,12 +62,18 @@ namespace BlockChainCSharp.Core
 
         public void GenerateBlock()
         {
-            Block newBlock = new Block();
+            Block               newBlock = new Block();
+            Hash                blockHash;
+            BlockMiningManager  miningManager       = new BlockMiningManager();
+            DateTime            dateTimeStampBlock  = DateTime.UtcNow;
+            Hash prevBlockHash = ChainedBlocks.Length - 1 > -1? this.GetBlock(ChainedBlocks.Length - 1).blockHash: null;
             //Add a new block to the chain
+
+            blockHash = miningManager.CalculateHash(prevBlockHash, unconfirmedTransactions, dateTimeStampBlock);                    //Create Hash (use difficulty)
 
             try
             {
-                newBlock.CreateBlock(this); //Try
+                newBlock.CreateBlock(this, blockHash, dateTimeStampBlock); //Try
                 Array.Resize(ref ChainedBlocks, ChainedBlocks.Length + 1);
                 ChainedBlocks[ChainedBlocks.Length - 1] = newBlock;
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Org.BouncyCastle.Crypto.Digests;
 
 namespace BlockChainCSharp.Core
 {
@@ -10,7 +8,7 @@ namespace BlockChainCSharp.Core
     {
         private     Int64                       blockHeight;
         private     Hash                        parentHash;
-        private     Hash                        blockHash;
+        public      Hash                        blockHash;
         private     DateTime                    blockDateTimeStamp;
         private     IList<BlockTransaction>     blockTransactions;  //One block has a list of transactions
         private     Int64                       difficulty;
@@ -42,7 +40,7 @@ namespace BlockChainCSharp.Core
             return ret;
         }
 
-        public Block CreateBlock(BlockChain _Chain)
+        public Block CreateBlock(BlockChain _Chain, Hash _blockHash, DateTime _dateTimeStampBlock)
         {
             int                 blockTimeDrift;
             //Gets the height of the blockChain when creating a new block
@@ -51,10 +49,10 @@ namespace BlockChainCSharp.Core
             //Create a new block
             Block ParentBlock = _Chain.GetBlock(blockHeight - 1);
 
-            blockDateTimeStamp  = DateTime.UtcNow;                              //Always use UTC
+            blockDateTimeStamp = _dateTimeStampBlock;                             //Always use UTC
             parentHash          = null;
             difficulty          = BlockDifficulty.GetCurrentBlockDifficulty();  //Determine and write block difficulty
-            blockHash           = CalculateHash(difficulty);                    //Create Hash (use difficulty)
+            blockHash           = _blockHash;
 
             if (ParentBlock!=null)
             {
@@ -64,12 +62,13 @@ namespace BlockChainCSharp.Core
                 if (blockTimeDrift < Parameters.GetParameter().AllowedMinimalBlocktime)
                 {
                     //Possible timewarp attack, block
+                    Console.WriteLine("Block too fast, prohibit time warping");
                     throw new Exception("Block too fast");
                 }
             }
 
             ObjectSerializerBlock.WriteBlockToBlob(this,this.blockHeight);
-            ObjectSerializerBlock.ReadBlobToBlock(this.blockHeight); //Just for testing
+            //TODO: Should be used when retrieving blocks loading the chain....ObjectSerializerBlock.ReadBlobToBlock(this.blockHeight);
 
             return this;
         }
@@ -77,22 +76,6 @@ namespace BlockChainCSharp.Core
         private Hash GetHash()
         {
             return this.blockHash;
-        }
-
-        private Hash CalculateHash(Int64 _difficulty)
-        {
-            //TODO: incorporate difficulty in hashing, maybe also change Sha3 to pbkdf2 to add difficulty
-            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-            Sha3Digest digest = new Sha3Digest(256);
-            byte[] bytes = new byte[32];
-
-            rng.GetBytes(bytes);
-
-            digest.BlockUpdate(bytes, 0, bytes.Length);
-            byte[] result = new byte[32];
-            digest.DoFinal(result, 0);
-
-            return new Hash(result);
         }
     }
 }

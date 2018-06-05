@@ -53,6 +53,7 @@
     <Compile Include="Core\Block.cs" />
     <Compile Include="Core\BlockChain.cs" />
     <Compile Include="Core\BlockDifficulty.cs" />
+    <Compile Include="Core\BlockMiningManager.cs" />
     <Compile Include="Core\BlockTransaction.cs" />
     <Compile Include="Core\Hash.cs" />
     <Compile Include="Core\ObjectSerializerBlock.cs" />
