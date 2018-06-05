@@ -17,37 +17,53 @@ namespace BlockChainCSharp.Core
         private double  Amount;
         private Int64   blockHeight;
         private Block   TargetBlock;
+        private Boolean isSigned;
+        Guid            TransactionID;
 
-        public Boolean GenerateNewTransaction(  string      _sender,
-                                                string      _receiver,
-                                                double      _amount,
-                                                Int64       _blockHeight,
-                                                BlockChain  _chain,
-                                                /*From here is optional*/
-                                                string      _description)
+        public BlockTransaction GenerateNewTransaction(  string      _sender,
+                                                         string      _receiver,
+                                                         double      _amount,
+                                                         Int64       _blockHeight,
+                                                         BlockChain  _chain,
+                                                         byte[]      _privateKey, 
+                                                         byte[]      _publicKey,
+                                                         /*From here is optional*/
+                                                         string      _description)
         {
-            Boolean Ret = true;
-
-            if (_amount < 0)
+            //TODO: Validate keys vs public address (_sender)
+            if (_amount <= 0)
             {
-                Console.WriteLine("Transaction has amount < 0, not allowed");
-                return false;
+                Console.WriteLine("Transaction has amount equal or less than 0, not allowed");
+                return null;
             }
             if (_blockHeight == 0)
             {
                 Console.WriteLine("Cannot add a transaction to the genesis block");
-                return false;
+                return null;
             }
 
-            Sender      = _sender;
-            Receiver    = _receiver;
-            Amount      = _amount;
-            Description = _description;
-            blockHeight = _blockHeight;
+            if (!KeyManager.ValidateInput(_privateKey, _publicKey, _sender))
+            {
+                Console.WriteLine("Wrong keys were added for the transaction, transaction failed");
+                return null;
+            }
+
+            Sender          = _sender;
+            Receiver        = _receiver;
+            Amount          = _amount;
+            Description     = _description;
+            blockHeight     = _blockHeight;
+            TransactionID   = Guid.NewGuid();
+
+            TransactionSigning Signing = new TransactionSigning();
+
+            Signing.SignTransaction(TransactionID, _chain);
+
+            isSigned        = true;
 
             _chain.AddTransactionToChainCue(this);  //new unconfirmed transaction
 
-            return Ret;
+            return this;
         }
 
         public Boolean AddTransactionToBlock(BlockChain _chain, BlockTransaction _transAction)
@@ -57,6 +73,11 @@ namespace BlockChainCSharp.Core
             if (TargetBlock == null)
             {
                 throw new InvalidOperationException("Block you want to add the transaction to does not exist on the chain");
+            }
+
+            if (!_transAction.isSigned)
+            {
+                throw new InvalidOperationException("Transaction is not signed, cannot be added to the chain");
             }
 
             TargetBlock.AddTransaction(this);

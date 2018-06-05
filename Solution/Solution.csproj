@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,9 +57,11 @@
     <Compile Include="Core\BlockMiningManager.cs" />
     <Compile Include="Core\BlockTransaction.cs" />
     <Compile Include="Core\Hash.cs" />
+    <Compile Include="Core\KeyManager.cs" />
     <Compile Include="Core\ObjectSerializerBlock.cs" />
     <Compile Include="Core\ObjectSerializerBlockChain.cs" />
-    <Compile Include="Core\Transaction.cs" />
+    <Compile Include="Core\TransactionSigning.cs" />
+    <Compile Include="Cryptography\Ed25519.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

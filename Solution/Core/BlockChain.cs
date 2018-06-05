@@ -7,8 +7,9 @@ namespace BlockChainCSharp.Core
     [Serializable]
     public class BlockChain
     {
-        private Block[] ChainedBlocks;
-        private IList<BlockTransaction> unconfirmedTransactions = new List<BlockTransaction>();
+        private Block[]                     ChainedBlocks;
+        private IList<BlockTransaction>     unconfirmedTransactions = new List<BlockTransaction>();
+        private TransactionSigning[]        signedTransactions;
 
         //Placeholder stuff, later on when coding the estimated block interval, add some difficulty tricks to make it happen
         private void PeriodicCreateBlock()
@@ -95,6 +96,13 @@ namespace BlockChainCSharp.Core
         public void AddTransactionToChainCue(BlockTransaction _transAction)
         {
             unconfirmedTransactions.Add(_transAction);
+        }
+
+        public void AddSignedTransactionToChain(TransactionSigning _TransactionSigning)
+        {
+            //Add signing to chain to counter double spending and stuff like that
+            Array.Resize(ref signedTransactions, signedTransactions.Length + 1);
+            signedTransactions[signedTransactions.Length - 1] = _TransactionSigning;
         }
     }
 }
