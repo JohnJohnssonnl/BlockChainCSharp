@@ -1,5 +1,6 @@
 # BlockChainCSharp
 Blockchain in C#<BR><BR>
+  Be aware that this software is currently not ready to use (working on it :-)), please refrain from doing so, or use at your own risk for testing only<BR><BR>
 Travis link: https://www.travis-ci.org/JohnJohnssonnl/BlockChainCSharp<BR>
 Travis Build status:   ![alt text](https://travis-ci.org/JohnJohnssonnl/BlockChainCSharp.svg?branch=master)<BR><BR>
 
