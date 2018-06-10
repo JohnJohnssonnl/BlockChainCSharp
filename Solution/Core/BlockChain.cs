@@ -30,6 +30,7 @@ namespace BlockChainCSharp.Core
         {
             int x = 0;
             String userInput;
+
             ChainedBlocks = new Block[0];
             //This is where the blockChain starts (for now :-P)
             do
