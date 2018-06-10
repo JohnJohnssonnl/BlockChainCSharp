@@ -16,6 +16,8 @@ namespace BlockChainCSharp
         public double   ConsensusReachedPct     = 90.0;         //At which percentage is consensus on the new block reached? recommended 90%
         public double   MinimumFee              = 0.000001;     //Minimum fee for the miners on top of a block reward
         public Int64    MinDifficulty           = 1;            //Minimal difficulty to be used, has to be used to prohibit goofy stuff
+        public Int32    HTTPPort                = 3001;         //Default HTTP port to use
+        public Int32    P2PPort                 = 3002;         //Default P2P port to use
 
         //Premining is for losers, no support for that kind of tricks
 

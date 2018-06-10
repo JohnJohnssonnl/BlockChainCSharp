@@ -62,6 +62,7 @@
     <Compile Include="Core\ObjectSerializerBlockChain.cs" />
     <Compile Include="Core\TransactionSigning.cs" />
     <Compile Include="Cryptography\Ed25519.cs" />
+    <Compile Include="HTTP\HTTPManager.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

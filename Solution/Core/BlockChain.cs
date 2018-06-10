@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Net;
+using System.Linq;
+using System.Net.Sockets;
 
 namespace BlockChainCSharp.Core
 {
