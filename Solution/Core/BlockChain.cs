@@ -87,6 +87,8 @@ namespace BlockChainCSharp.Core
                     newBlock.AddTransaction(item);
                 }
 
+                Console.WriteLine("Added block at height: " + GetHeight() + " DateTime Stamp: " + newBlock.blockDateTimeStamp);
+
                 unconfirmedTransactions.Clear();    //Clear unconfirmed transactions
             }
             catch

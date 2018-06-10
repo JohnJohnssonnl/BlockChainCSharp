@@ -9,7 +9,7 @@ namespace BlockChainCSharp.Core
         private     Int64                       blockHeight;
         private     Hash                        parentHash;
         public      Hash                        blockHash;
-        private     DateTime                    blockDateTimeStamp;
+        public      DateTime                    blockDateTimeStamp;
         private     IList<BlockTransaction>     blockTransactions;  //One block has a list of transactions
         private     Int64                       difficulty;
 
