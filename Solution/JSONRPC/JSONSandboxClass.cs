@@ -9,7 +9,7 @@ using System.Net;
 using System.IO;
 using BlockChainCSharp;
 
-namespace MonetaVerdeWalletC
+namespace JsonRPC
 {
     class JSONSandboxClass
     {
