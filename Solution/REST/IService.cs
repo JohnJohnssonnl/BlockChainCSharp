@@ -15,6 +15,11 @@ namespace Contracts
             ResponseFormat = WebMessageFormat.Json)]
         string GetBlockHash(string BlockID);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "/GetStatus/",
+        ResponseFormat = WebMessageFormat.Json)]
+        string GetStatus();
+
         //JSON requests and response
         [OperationContract]
         [WebInvoke(UriTemplate = "/WriteTransaction",
