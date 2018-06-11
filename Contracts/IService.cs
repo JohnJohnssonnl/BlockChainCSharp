@@ -1,6 +1,5 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
-using BlockChainCSharp.Core;
 
 namespace Contracts
 {
@@ -25,6 +24,6 @@ namespace Contracts
         [WebInvoke(UriTemplate = "/WriteTransaction",
            RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json, Method = "POST")]
-        bool WriteTransaction(BlockTransaction transaction);
+        bool WriteTransaction(object transaction);
     }
 }

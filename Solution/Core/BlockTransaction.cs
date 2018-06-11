@@ -44,7 +44,7 @@ namespace BlockChainCSharp.Core
 
             if (!KeyManager.ValidateInput(_privateKey, _publicKey, _sender))
             {
-                Console.WriteLine("Wrong keys were added for the transaction, transaction failed");
+                Console.WriteLine("Wrong keys were added for the transaction, transaction not accepted");
                 return null;
             }
 

@@ -38,10 +38,11 @@ namespace BlockChainCSharp.REST
             }
             return blockHash;
         }
-        public bool WriteTransaction(BlockTransaction transaction)
+        public bool WriteTransaction(object transaction)
         {
             try
             {
+                Console.WriteLine("Received data");
                 //Do stuff with the new object of type transaction
             }
             catch (Exception ex)

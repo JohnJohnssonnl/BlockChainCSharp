@@ -28,7 +28,7 @@ namespace BlockChainCSharp.REST
                 Console.WriteLine("Service is online");
                 Console.WriteLine("You can check whether the service is running as expected by navigating to: " + URI + "/GetStatus");
             }
-            catch
+           catch
             {
                 Console.WriteLine("Couldn't start service");
             }

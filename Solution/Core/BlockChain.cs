@@ -10,6 +10,7 @@ namespace BlockChainCSharp.Core
     {
         private Block[]                     ChainedBlocks;
         private IList<BlockTransaction>     unconfirmedTransactions = new List<BlockTransaction>();
+        private IList<SignedUpMiners>       signedUpMiners          = new List<SignedUpMiners>();
         private TransactionSigning[]        signedTransactions;
         REST.ServiceController              webServiceController;
 
@@ -27,14 +28,19 @@ namespace BlockChainCSharp.Core
 
         public void Genesis()
         {
-            webServiceController = new REST.ServiceController();
             int x = 0;
             String userInput;
-
+            SignedUpMiners Miners = new SignedUpMiners();
+            webServiceController = new REST.ServiceController();
             webServiceController.StartWebService();
 
             ChainedBlocks = new Block[0];
             //This is where the blockChain starts (for now :-P)
+
+            Miners.SignUpLocalComputerForMining("Woei", this);
+            Miners.SignUpLocalComputerForMining("Woei3", this);
+            Miners.SignUpLocalComputerForMining("Woei3", this);
+            Miners.SignUpLocalComputerForMining("Woei4", this);
             do
             {
                 userInput = Console.ReadLine();
@@ -98,6 +104,15 @@ namespace BlockChainCSharp.Core
             {
                 Console.WriteLine("Skipped inserting block due to errors");
                 return;
+            }
+        }
+
+        public void AddSignedUpMiner(SignedUpMiners _SignedUpMiner)
+        {
+            //First check whether the miner already exists (cheaters!), else signup
+            if (!signedUpMiners.Contains(_SignedUpMiner))
+            {
+                signedUpMiners.Add(_SignedUpMiner);
             }
         }
 
