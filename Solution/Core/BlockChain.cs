@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Net;
-using System.Linq;
-using System.Net.Sockets;
+using BlockChainCSharp.REST;
 
 namespace BlockChainCSharp.Core
 {
@@ -13,6 +11,7 @@ namespace BlockChainCSharp.Core
         private Block[]                     ChainedBlocks;
         private IList<BlockTransaction>     unconfirmedTransactions = new List<BlockTransaction>();
         private TransactionSigning[]        signedTransactions;
+        REST.ServiceController              webServiceController;
 
         //Placeholder stuff, later on when coding the estimated block interval, add some difficulty tricks to make it happen
         private void PeriodicCreateBlock()
@@ -28,8 +27,11 @@ namespace BlockChainCSharp.Core
 
         public void Genesis()
         {
+            webServiceController = new REST.ServiceController();
             int x = 0;
             String userInput;
+
+            webServiceController.StartWebService();
 
             ChainedBlocks = new Block[0];
             //This is where the blockChain starts (for now :-P)
