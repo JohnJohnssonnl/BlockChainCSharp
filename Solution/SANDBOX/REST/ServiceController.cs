@@ -15,7 +15,7 @@ namespace BlockChainCSharp.REST
         {
             //For now localhost
             String URI = "http://localhost:" + Convert.ToString(Parameters.GetParameter().HTTPPort);
-         
+            
             host = new WebServiceHost(typeof(Service), new Uri(URI));
             ServiceEndpoint ep = host.AddServiceEndpoint(typeof(IService), new WebHttpBinding(), "");
             ServiceDebugBehavior stp = host.Description.Behaviors.Find<ServiceDebugBehavior>();

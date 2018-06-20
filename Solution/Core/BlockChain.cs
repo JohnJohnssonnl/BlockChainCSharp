@@ -37,10 +37,6 @@ namespace BlockChainCSharp.Core
             ChainedBlocks = new Block[0];
             //This is where the blockChain starts (for now :-P)
 
-            Miners.SignUpLocalComputerForMining("Woei", this);
-            Miners.SignUpLocalComputerForMining("Woei3", this);
-            Miners.SignUpLocalComputerForMining("Woei3", this);
-            Miners.SignUpLocalComputerForMining("Woei4", this);
             do
             {
                 userInput = Console.ReadLine();
